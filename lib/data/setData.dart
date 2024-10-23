@@ -18,7 +18,7 @@ List<money> geter() {
   money threeTR = money();
   threeTR.buy = false;
   threeTR.fee = '\$ 150';
-  threeTR.image = 'assets/food.png';
+  threeTR.image = 'assets/Transportation.png';
   threeTR.name = 'up';
   threeTR.time = 'Yesterday';
 
@@ -46,7 +46,7 @@ List<money> geter() {
   money threeTR_2 = money();
   threeTR_2.buy = false;
   threeTR_2.fee = '\$ 150';
-  threeTR_2.image = 'assets/food.png';
+  threeTR_2.image = 'assets/Education.png';
   threeTR_2.name = 'up';
   threeTR_2.time = 'Yesterday';
 
@@ -57,6 +57,13 @@ List<money> geter() {
   fore_2.name = 'cardtop';
   fore_2.time = 'jun 30,2024';
 
+  money fore_22 = money();
+  fore_22.buy = true;
+  fore_22.fee = '\$ 89';
+  fore_22.image = 'assets/Tes.png';
+  fore_22.name = 'cardtop';
+  fore_22.time = 'jun 30,2024';
 
-  return [upwork, secondTR, threeTR,fore,upwork_2,secondTR_2,threeTR_2,fore_2];
+
+  return [upwork, secondTR, threeTR,fore,upwork_2,secondTR_2,threeTR_2,fore_2,fore_22];
 }

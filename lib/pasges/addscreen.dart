@@ -1,7 +1,11 @@
-import 'dart:math';
+import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1_introdection_my_wallet/data/database.dart';
+import 'package:flutter_application_1_introdection_my_wallet/data/getdatahive.dart';
+import 'package:flutter_application_1_introdection_my_wallet/pasges/Planning/QRcodeMy.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class AddScreenMy extends StatefulWidget {
   const AddScreenMy({super.key});
@@ -11,12 +15,14 @@ class AddScreenMy extends StatefulWidget {
 }
 
 class _AddScreenMyState extends State<AddScreenMy> {
+  final box = Hive.box<Add_data>("data");
   DateTime date = new DateTime.now();
-    final DatabaseHelper _databaseHelper = DatabaseHelper();
-
+  final DatabaseHelper _databaseHelper = DatabaseHelper();
 
   String? selectitem;
   String? selectitemi;
+
+  final userrr = FirebaseAuth.instance.currentUser!;
 
   FocusNode ex = FocusNode();
   final TextEditingController expalinn_c = TextEditingController();
@@ -27,13 +33,21 @@ class _AddScreenMyState extends State<AddScreenMy> {
     "Transfer",
     "card",
     "Education",
-    "Transportation"
+    "Transportation",
+    "Tes",
+    "gift",
+    "shop",
+    "pay",
+    "gaming",
+    "health",
+    "family",
+    "maintenance",
+    "other"
   ];
-  final List<String> _itemi = ["Income", "Expand"];
-   // متغيرات جديدة لتخزين البيانات المدخلة
-  String _enteredName = '';
-  String _enteredExplain = '';
-  double _enteredAmount = 0.0;
+  final List<String> _itemi = [
+    "Income",
+    "Expand",
+  ];
 
   @override
   void setState(VoidCallback fn) {
@@ -47,7 +61,6 @@ class _AddScreenMyState extends State<AddScreenMy> {
     });
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -57,74 +70,109 @@ class _AddScreenMyState extends State<AddScreenMy> {
   Future<void> _initializeDatabase() async {
     await _databaseHelper.initDatabase();
   }
+
+  File? _image;
+
+  // Future<void> downloadModel() async {
+  //   FirebaseCustomModel model = await FirebaseModelDownloader.instance.getModel(
+  //     "my_model",
+  //     FirebaseModelDownloadType
+  //         .latestModel, // يمكنك تغيير نوع التحميل حسب احتياجاتك
+  //     FirebaseModelDownloadConditions(
+  //       iosAllowsCellularAccess: true,
+  //       androidChargingRequired: false,
+  //     ),
+  //   );
+
+  //   // يمكنك الآن الوصول إلى النموذج
+  //   final modelFile = model.file;
+  //   print("Model path: ${modelFile.path}");
+  // }
+
+  Future<void> _pickImage() async {
+    // طلب الأذونات
+    // var status = await Permission.camera.request();
+    // if (status.isGranted) {
+    //   final picker = ImagePicker();
+    //   final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    //   if (pickedFile != null) {
+    //     setState(() {
+    //       _image = File(pickedFile.path);
+    //     });
+    //   } else {
+    //     Get.snackbar("Error", "No image selected");
+    //   }
+    // } else {
+    //   Get.snackbar("Error", "Camera permission denied");
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
-          child: Stack(
-        alignment: Alignment.center,
-        children: [
-
-          background_Continar(context),
-          
-          Positioned(
-            top: 120,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-              ),
-              height: 550,
-              width: 340,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 50,
-                  ),
-                  name(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  explian(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  amount_(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  How(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Date_Time(context),
-                  Spacer(),
-                  save(),
-                  SizedBox(height: 20,),
-
-
-
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Entered Data:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Text('Name: $_enteredName'),
-                          Text('Explain: $_enteredExplain'),
-                          Text('Amount: $_enteredAmount'),
-                          Text('Date: ${date.year} / ${date.day} / ${date.month}'),
-                        ],
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            background_Continar(context),
+            Positioned(
+              top: 120,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white
+                    // color: Theme.of(context).colorScheme.primary,
+                    ,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(0, 2),
+                        blurRadius: 2,
+                        spreadRadius: 1,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                  height: 550,
+                  width: 340,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 50,
+                      ),
+                      name(),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      explian(),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      amount_(),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      How(),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Date_Time(context),
+                      Spacer(),
+                      save(),
+                      SizedBox(
+                        height: 1,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          children: [],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -133,85 +181,73 @@ class _AddScreenMyState extends State<AddScreenMy> {
       ),
     );
   }
-                  
-        
 
   Column background_Continar(BuildContext context) {
     return Column(
-          children: [
-            Container(
-              width: double.infinity,
-              height: 240,
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 3, 32, 149),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20))),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          "Adding",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white),
-                        ),
-                        Icon(
-                          Icons.attach_email_outlined,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+      children: [
+        Container(
+          height: 111,
+          width: double.infinity,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
               ),
-            ),
-          ],
-        );
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Text(
+                      "Adding",
+                      style: TextStyle(
+                          fontSize: 27,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 23, 107, 135)),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        // downloadModel();
+                        QRViewExample();
+                      },
+                      icon: Icon(
+                        Icons.add_a_photo_outlined,
+                        color: Colors.black,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-
-  
   GestureDetector save() {
     return GestureDetector(
-      onTap: () async {
-        setState(() {
-          _enteredName = selectitem ?? 'No Title';
-          _enteredExplain = expalinn_c.text;
-          _enteredAmount = double.tryParse(amount_c.text) ?? 0.0;
-        });
-
-        await _databaseHelper.insertTransaction(
-          selectitem ?? 'No Title',
-          expalinn_c.text,
-          double.tryParse(amount_c.text) ?? 0.0,
-          date.toString(),
-        );
-        Navigator.of(context).pop(); 
+      onTap: () {
+        var add = Add_data(
+            selectitem!, expalinn_c.text, amount_c.text, selectitemi!, date);
+        box.add(add);
+        Navigator.of(context).pop();
       },
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Color.fromARGB(255, 3, 32, 149),
+          color: const Color.fromARGB(255, 23, 107, 135),
         ),
         width: 120,
         height: 50,
@@ -326,7 +362,7 @@ class _AddScreenMyState extends State<AddScreenMy> {
 
   Padding amount_() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 19.0),
       child: TextField(
         keyboardType: TextInputType.number,
         focusNode: amount,
@@ -353,7 +389,7 @@ class _AddScreenMyState extends State<AddScreenMy> {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
               width: 2,
-              color: Color.fromARGB(255, 3, 32, 149),
+              color: Color.fromARGB(255, 23, 107, 135),
             ),
           ),
         ),
@@ -363,7 +399,7 @@ class _AddScreenMyState extends State<AddScreenMy> {
 
   Padding explian() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 19.0),
       child: TextField(
         focusNode: ex,
         controller: expalinn_c,
@@ -389,7 +425,7 @@ class _AddScreenMyState extends State<AddScreenMy> {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
               width: 2,
-              color: Color.fromARGB(255, 3, 32, 149),
+              color: Color.fromARGB(255, 23, 107, 135),
             ),
           ),
         ),
@@ -451,8 +487,8 @@ class _AddScreenMyState extends State<AddScreenMy> {
                       ],
                     ))
                 .toList(),
-            hint: Text("name"),
-            dropdownColor: Colors.white,
+            hint: Text("category"),
+            dropdownColor: Theme.of(context).colorScheme.background,
             isExpanded: true,
             underline: Container(),
             onChanged: ((value) {

@@ -10,7 +10,7 @@
 analyzer:
   errors:
     file_names: ignore
-    prefer_const_constructors: ignore ignore ignore ignore ignore ignore ignore ignore ignore ignore
+    prefer_const_constructors: ignore ignore ignore ignore ignore ignore ignore ignore ignore ignore ignore
     prefer_const_literals_to_create_immutables: ignore ignore
     sized_box_for_whitespace: ignore
 include: package:flutter_lints/flutter.yaml

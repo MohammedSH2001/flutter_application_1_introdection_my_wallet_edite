@@ -1,9 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1_introdection_my_wallet/pasges/Dashbord.dart';
-import 'package:flutter_application_1_introdection_my_wallet/widgat/Bottun.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_application_1_introdection_my_wallet/pasges/Planning/NewsNow.dart';
+import 'package:flutter_application_1_introdection_my_wallet/pasges/Planning/chat.dart';
+import 'package:flutter_application_1_introdection_my_wallet/widgat/SecondBoringScreen.dart';
 
 class AddBalance extends StatefulWidget {
   const AddBalance({super.key});
@@ -13,56 +11,124 @@ class AddBalance extends StatefulWidget {
 }
 
 class _AddBalanceState extends State<AddBalance> {
-  SharedPreferencesAsync pref = SharedPreferencesAsync();
-  int addbalanceMy =0;
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextField(
-            keyboardType: TextInputType.number,
-            onSubmitted: (addMybalance) async {
-            
-              await pref.setInt("AddBalance", int.parse(addMybalance));
-            },
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              prefixIcon: Icon(Icons.person),
-              hintText: "AddBalance",
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: Text(
+                    "Planning",
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2.0,
+                    ),
+                  ),
+                ),
+                _buildCard(
+                  context,
+                  title: "News",
+                  image: "assets/news.jpg",
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => NewsScreen()));
+                  },
+                ),
+                SizedBox(height: 20),
+                _buildCard(
+                  context,
+                  title: "AI Chat",
+                  image: "assets/chat.jpg",
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => BotScreen()));
+                  },
+                ),
+                SizedBox(height: 20),
+                _buildCard(
+                  context,
+                  title: "Planning AI",
+                  image: "assets/ai_2.jpg",
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => SecondBoringScreen()));
+                  },
+                ),
+              ],
             ),
           ),
-          ElevatedButton(
-            onPressed: ()async {
-               addbalanceMy = await pref.getInt("AddBalance") ?? 0;
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BottunMy(
-                                    
-                                  
-                                  )));
-            },
-            child: Text(
-              "AddBalance",
-              style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCard(BuildContext context, {required String title, required String image, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 340,
+        height: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 8,
+              spreadRadius: 2,
+              offset: Offset(0, 6),
             ),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
-                  const Color.fromARGB(255, 27, 42, 154)),
-              padding: MaterialStateProperty.all(
-                  EdgeInsets.symmetric(horizontal: 95, vertical: 10)),
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+          ],
+        ),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                image,
+                height: double.infinity,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                  colors: [Colors.black.withOpacity(0.6), Colors.transparent],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
                 ),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 20,
+              left: 20,
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 10.0,
+                      color: Colors.black54,
+                      offset: Offset(3, 3),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
