@@ -62,7 +62,7 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
           IconButton(
             onPressed: () {
               // إرسال الإشعار عند تحميل الصفحة
-              _sendNotification();
+              // _sendNotification();
             },
             icon: Icon(Icons.notification_add_outlined),
           ),
@@ -190,23 +190,23 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
     );
   }
 
-  void _sendNotification() async {
-    String? token = await getToken(); 
+  // void _sendNotification() async {
+  //   String? token = await getToken(); 
 
-    if (token != null) {
-      print("Doneeeee");
-      await NotificationScreen.sendNotification(
-        token,
-        'تفاصيل المعاملة',
-        'لقد فتحت تفاصيل المعاملة ${widget.transaction.name}',
-      );
-      appMessage(text: 'Doneee', fail: false, context: context);
-      print("Token => $token");
-      print("Notification sent successfully.");
-    } else {
-      print("Failed to get device token.");
-    }
-  }
+  //   if (token != null) {
+  //     print("Doneeeee");
+  //     await NotificationScreen.sendNotification(
+  //       token,
+  //       'تفاصيل المعاملة',
+  //       'لقد فتحت تفاصيل المعاملة ${widget.transaction.name}',
+  //     );
+  //     appMessage(text: 'Doneee', fail: false, context: context);
+  //     print("Token => $token");
+  //     print("Notification sent successfully.");
+  //   } else {
+  //     print("Failed to get device token.");
+  //   }
+  // }
 }
 
 List<TransactionData> getTransactionData() {

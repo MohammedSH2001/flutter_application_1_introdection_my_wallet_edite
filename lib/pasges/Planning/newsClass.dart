@@ -7,7 +7,7 @@ class Article {
   final String source;
   final String? imageUrl;
   final String? videoUrl;
-  final DateTime? publishedAt; // تاريخ النشر
+  final DateTime? publishedAt;
 
   Article({
     required this.title,
@@ -26,8 +26,8 @@ class Article {
       url: json['url'] ?? '',
       source: json['source']?['name'] ?? 'Unknown Source',
       imageUrl: json['urlToImage'],
-      videoUrl: null, // يمكن إضافة منطق للحصول على مقاطع الفيديو إذا كانت متاحة
-      publishedAt: json['publishedAt'] != null
+      videoUrl: null,
+            publishedAt: json['publishedAt'] != null
           ? DateTime.parse(json['publishedAt']) // تحويل السلسلة إلى DateTime
           : null,
     );

@@ -19,7 +19,7 @@ class NewsScreen extends StatefulWidget {
 class _NewsScreenState extends State<NewsScreen> {
   late Future<List<Article>> futureArticles;
   final String apiKey =
-      'dd12995f756340b39e704a1b5d882194'; // استبدل بمفتاح API الخاص بك
+      'REPLACE_WITH_YOUR_SECRET'; 
   List<Article> allArticles = [];
   List<Article> filteredArticles = [];
   int currentPage = 1;

@@ -16,7 +16,7 @@ final box = Hive.box<Add_data>('data');
 
 class _BotScreenState extends State<BotScreen> {
   final TextEditingController _userMessage = TextEditingController();
-  static const apiKey = "AIzaSyBqU_McZ0dUd8lwGf5nwGum1lXorZOFjeQ";
+  static const apiKey = "REPLACE_WITH_YOUR_SECRET";
   final model = GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
   final List<Message> _messages = [];
 
@@ -26,8 +26,7 @@ class _BotScreenState extends State<BotScreen> {
 Map<String, double> analyzeData(List<Add_data> data) {
   Map<String, double> analysis = {};
   for (var item in data) {
-    // تأكد من تحويل item.amount إلى رقم
-    double amount = double.tryParse(item.amount.toString()) ?? 0.0; // تحويل إلى double
+    double amount = double.tryParse(item.amount.toString()) ?? 0.0; 
 
     analysis[item.name] = (analysis[item.name] ?? 0) + amount;
   }
@@ -98,8 +97,7 @@ Map<String, double> analyzeData(List<Add_data> data) {
 
 @override
 Widget build(BuildContext context) {
-  Map<String, double> analysis = analyzeData(getData); // تحليل البيانات هنا
-
+  Map<String, double> analysis = analyzeData(getData); 
   return Scaffold(
     appBar: AppBar(
       title: const Text("Bot"),

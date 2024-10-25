@@ -19,7 +19,7 @@ class CurrencyExchangeScreen extends StatefulWidget {
 }
 
 class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
-  final String apiKey = 'DC4BPTSNBK44C472';
+  final String apiKey = 'REPLACE_WITH_YOUR_SECRET';
   late MarketDataService service;
   Map<String, dynamic>? exchangeRateDataToUSD;
   Map<String, dynamic>? exchangeRateDataToLYD;
