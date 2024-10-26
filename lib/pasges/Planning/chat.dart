@@ -16,7 +16,7 @@ final box = Hive.box<Add_data>('data');
 
 class _BotScreenState extends State<BotScreen> {
   final TextEditingController _userMessage = TextEditingController();
-  static const apiKey = "REPLACE_WITH_YOUR_SECRET";
+  static const apiKey = "AIzaSyBqU_McZ0dUd8lwGf5nwGum1lXorZOFjeQ";
   final model = GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
   final List<Message> _messages = [];
 
@@ -97,7 +97,8 @@ Map<String, double> analyzeData(List<Add_data> data) {
 
 @override
 Widget build(BuildContext context) {
-  Map<String, double> analysis = analyzeData(getData); 
+  Map<String, double> analysis = analyzeData(getData); // تحليل البيانات هنا
+
   return Scaffold(
     appBar: AppBar(
       title: const Text("Bot"),

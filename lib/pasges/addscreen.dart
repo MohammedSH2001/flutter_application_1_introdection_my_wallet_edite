@@ -1,11 +1,13 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1_introdection_my_wallet/data/database.dart';
 import 'package:flutter_application_1_introdection_my_wallet/data/getdatahive.dart';
-import 'package:flutter_application_1_introdection_my_wallet/pasges/Planning/QRcodeMy.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart'
+    as permissionHandler;
 
 class AddScreenMy extends StatefulWidget {
   const AddScreenMy({super.key});
@@ -17,7 +19,6 @@ class AddScreenMy extends StatefulWidget {
 class _AddScreenMyState extends State<AddScreenMy> {
   final box = Hive.box<Add_data>("data");
   DateTime date = new DateTime.now();
-  final DatabaseHelper _databaseHelper = DatabaseHelper();
 
   String? selectitem;
   String? selectitemi;
@@ -61,55 +62,31 @@ class _AddScreenMyState extends State<AddScreenMy> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _initializeDatabase();
-  }
-
-  Future<void> _initializeDatabase() async {
-    await _databaseHelper.initDatabase();
-  }
-
   File? _image;
-
-  // Future<void> downloadModel() async {
-  //   FirebaseCustomModel model = await FirebaseModelDownloader.instance.getModel(
-  //     "my_model",
-  //     FirebaseModelDownloadType
-  //         .latestModel, // يمكنك تغيير نوع التحميل حسب احتياجاتك
-  //     FirebaseModelDownloadConditions(
-  //       iosAllowsCellularAccess: true,
-  //       androidChargingRequired: false,
-  //     ),
-  //   );
-
-  //   // يمكنك الآن الوصول إلى النموذج
-  //   final modelFile = model.file;
-  //   print("Model path: ${modelFile.path}");
-  // }
 
   Future<void> _pickImage() async {
     // طلب الأذونات
-    // var status = await Permission.camera.request();
-    // if (status.isGranted) {
-    //   final picker = ImagePicker();
-    //   final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    var status = await permissionHandler.Permission.camera.request();
+    if (status.isGranted) {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
-    //   if (pickedFile != null) {
-    //     setState(() {
-    //       _image = File(pickedFile.path);
-    //     });
-    //   } else {
-    //     Get.snackbar("Error", "No image selected");
-    //   }
-    // } else {
-    //   Get.snackbar("Error", "Camera permission denied");
-    // }
+      if (pickedFile != null) {
+        setState(() {
+          _image = File(pickedFile.path);
+        });
+      } else {
+        Get.snackbar("Error", "No image selected");
+      }
+    } else {
+      Get.snackbar("Error", "Camera permission denied");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
@@ -118,9 +95,11 @@ class _AddScreenMyState extends State<AddScreenMy> {
           children: [
             background_Continar(context),
             Positioned(
-              top: 120,
+              top: screenSize.height * 0.09,
               child: Padding(
-                padding: const EdgeInsets.only(top: 30),
+                // padding: const EdgeInsets.only(top: 30),
+                padding: EdgeInsets.only(top: screenSize.height * 0.05),
+
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -136,32 +115,33 @@ class _AddScreenMyState extends State<AddScreenMy> {
                       ),
                     ],
                   ),
-                  height: 550,
-                  width: 340,
+                  // height: 550,
+                  // width: 340,
+                  height:
+                      screenSize.height * 0.7, // استخدم نسبة من ارتفاع الشاشة
+                  width: screenSize.width * 0.85, //
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 50,
-                      ),
-                      name(),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      explian(),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      amount_(),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      How(),
-                      SizedBox(
-                        height: 30,
-                      ),
+                      // SizedBox(
+                      //   height: 50,
+                      // ),
+                      SizedBox(height: screenSize.height * 0.05),
+
+                      name(screenSize),
+                      SizedBox(height: screenSize.height * 0.04),
+
+                      explian(screenSize),
+                      SizedBox(height: screenSize.height * 0.04),
+
+                      amount_(screenSize),
+                      SizedBox(height: screenSize.height * 0.04),
+
+                      How(screenSize),
+                      SizedBox(height: screenSize.height * 0.04),
+
                       Date_Time(context),
                       Spacer(),
-                      save(),
+                      save(screenSize),
                       SizedBox(
                         height: 1,
                       ),
@@ -217,8 +197,8 @@ class _AddScreenMyState extends State<AddScreenMy> {
                     ),
                     IconButton(
                       onPressed: () {
-                        // downloadModel();
-                        QRViewExample();
+                        _pickImage();
+                        // QRScannerScreen();
                       },
                       icon: Icon(
                         Icons.add_a_photo_outlined,
@@ -235,7 +215,7 @@ class _AddScreenMyState extends State<AddScreenMy> {
     );
   }
 
-  GestureDetector save() {
+  GestureDetector save(Size screenSize) {
     return GestureDetector(
       onTap: () {
         var add = Add_data(
@@ -249,7 +229,7 @@ class _AddScreenMyState extends State<AddScreenMy> {
           borderRadius: BorderRadius.circular(15),
           color: const Color.fromARGB(255, 23, 107, 135),
         ),
-        width: 120,
+        width: screenSize.width * 0.35, // استخدم نسبة من عرض الشاشة
         height: 50,
         child: Text(
           "Save",
@@ -293,7 +273,7 @@ class _AddScreenMyState extends State<AddScreenMy> {
     );
   }
 
-  Padding How() {
+  Padding How(Size) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Container(
@@ -360,9 +340,9 @@ class _AddScreenMyState extends State<AddScreenMy> {
     );
   }
 
-  Padding amount_() {
+  Padding amount_(Size screenSize) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 19.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: TextField(
         keyboardType: TextInputType.number,
         focusNode: amount,
@@ -397,9 +377,9 @@ class _AddScreenMyState extends State<AddScreenMy> {
     );
   }
 
-  Padding explian() {
+  Padding explian(Size screenSize) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 19.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: TextField(
         focusNode: ex,
         controller: expalinn_c,
@@ -433,11 +413,13 @@ class _AddScreenMyState extends State<AddScreenMy> {
     );
   }
 
-  Padding name() {
+  Padding name(Size screenSize) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Container(
-        width: 300,
+        // width: 300,\
+        width: screenSize.width * 0.85, // استخدم نسبة من عرض الشاشة
+
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(

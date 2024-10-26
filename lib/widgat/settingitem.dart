@@ -3,7 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1_introdection_my_wallet/widgat/forwerbutton.dart';
 import 'package:ionicons/ionicons.dart';
 
+
 class settingitem extends StatelessWidget {
+
+
+  
   final String title;
   final Color bgColor;
   final Color iconsColor;
@@ -21,6 +25,8 @@ class settingitem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
       
       width: double.infinity,
@@ -41,16 +47,16 @@ class settingitem extends StatelessWidget {
           ),
           Text(
             title,
-            style:const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            style:const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
           Spacer(),
           value!=null?
           Text(
             value!,
-            style:const TextStyle(fontSize: 16, color: Colors.grey),
+    style: TextStyle(fontSize: screenWidth * 0.027), // الحجم يصبح نسبة من عرض الشاشة
           ):const SizedBox(),
           SizedBox(
-            width: 20,
+            width: 20
           ),
           forwerButton(onTap: ontap,),
         ],

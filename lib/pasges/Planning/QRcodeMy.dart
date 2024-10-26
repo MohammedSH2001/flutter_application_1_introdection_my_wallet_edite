@@ -1,67 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class QRViewExample extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+void main() {
+  runApp(MaterialApp(home: QRScannerScreen()));
 }
 
-class _QRViewExampleState extends State<QRViewExample> {
+class QRScannerScreen extends StatefulWidget {
+  @override
+  _QRScannerScreenState createState() => _QRScannerScreenState();
+}
+
+class _QRScannerScreenState extends State<QRScannerScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  Barcode? result;
   QRViewController? controller;
 
   @override
-  void reassemble() {
-    super.reassemble();
-    if (controller != null) {
-      controller!.pauseCamera();
+  void initState() {
+    super.initState();
+    _requestCameraPermission();
+  }
+
+  Future<void> _requestCameraPermission() async {
+    var status = await Permission.camera.request();
+    if (status.isGranted) {
+      print("Camera permission granted");
+    } else {
+      Get.snackbar("Error", "Camera permission denied");
     }
-    controller!.resumeCamera();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Scan QR Code'),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 5,
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
-              overlay: QrScannerOverlayShape(
-                borderColor: Colors.blue,
-                borderRadius: 10,
-                borderLength: 30,
-                borderWidth: 10,
-                cutOutSize: 300,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: (result != null)
-                  ? Text('Barcode Type: ${result!.format}   Data: ${result!.code}')
-                  : Text('Scan a code'),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text('QR Code Scanner'),
+    ),
+    body: FutureBuilder(
+      future: _requestCameraPermission(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return QRView(
+            key: qrKey,
+            onQRViewCreated: _onQRViewCreated,
+          );
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    ),
+  );
+}
+
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+      Get.snackbar("QR Code Scanned", scanData.code ?? "No data found");
+      controller.pauseCamera(); // لإيقاف الكاميرا بعد المسح
     });
   }
 

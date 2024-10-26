@@ -64,7 +64,7 @@ class _HomeState extends State<Dashbord> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
@@ -354,6 +354,7 @@ Widget _head(double screenWidth) {
         ],
       ),
       Positioned(
+        
         top: 105,
         left: 15,
         right: 15,
@@ -458,7 +459,7 @@ Widget _head(double screenWidth) {
                           radius: 13,
                           backgroundColor: Color.fromARGB(100, 238, 238, 238),
                           child: Icon(
-                            Icons.arrow_upward_outlined,
+                            Icons.arrow_downward_outlined,
                             color: Colors.white,
                             size: 24,
                           ),
@@ -480,7 +481,7 @@ Widget _head(double screenWidth) {
                           radius: 13,
                           backgroundColor: Color.fromARGB(100, 238, 238, 238),
                           child: Icon(
-                            Icons.arrow_downward_outlined,
+                            Icons.arrow_upward_outlined,
                             color: Colors.white,
                             size: 24,
                           ),

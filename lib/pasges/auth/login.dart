@@ -46,7 +46,6 @@ class _LoginState extends State<Login_auth> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        
         backgroundColor: Color.fromARGB(255, 247, 247, 247),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -54,7 +53,9 @@ class _LoginState extends State<Login_auth> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 70,),
+                SizedBox(
+                  height: 70,
+                ),
                 Container(
                   width: 350,
                   height: 300,
@@ -74,25 +75,23 @@ class _LoginState extends State<Login_auth> {
                       icon: Icon(Icons.email),
                     ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0), // يحدد الكيرف
+                      borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide(
-                        color: Colors.blue, // لون الحدود
-                        width: 2.0, // سمك الحدود
+                        color: Colors.blue,
+                        width: 2.0,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          30.0), // نفس الكيرف للحالة المركزة
+                      borderRadius: BorderRadius.circular(30.0),
                       borderSide: BorderSide(
-                        color: Colors.blueAccent, // لون الحدود عند التركيز
+                        color: Colors.blueAccent,
                         width: 3.0,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          14.0), // نفس الكيرف للحالة العادية
+                      borderRadius: BorderRadius.circular(14.0),
                       borderSide: BorderSide(
-                        color: Colors.grey, // لون الحدود عندما لا يكون مركزاً
+                        color: Colors.grey,
                         width: 0.0,
                       ),
                     ),
@@ -106,31 +105,27 @@ class _LoginState extends State<Login_auth> {
                     keyboardType: TextInputType.text,
                     obscureText: isvizibility ? true : false,
                     decoration: decorationTextfield.copyWith(
-                        border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(10.0), // يحدد الكيرف
-                          borderSide: BorderSide(
-                            color: Colors.blue, // لون الحدود
-                            width: 2.0, // سمك الحدود
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                              30.0), // نفس الكيرف للحالة المركزة
-                          borderSide: BorderSide(
-                            color: Colors.blueAccent, // لون الحدود عند التركيز
-                            width: 3.0,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                              14.0), // نفس الكيرف للحالة العادية
-                          borderSide: BorderSide(
-                            color:
-                                Colors.grey, // لون الحدود عندما لا يكون مركزاً
-                            width: 0.0,
-                          ),
-                        ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.blue,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.blueAccent,
+                                    width: 3.0,
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(14.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.grey,
+                                    width: 0.0,
+                                  ),
+                                ),
                         hintText: "Enter Your Password  ",
                         suffixIcon: IconButton(
                             onPressed: () {
@@ -146,34 +141,31 @@ class _LoginState extends State<Login_auth> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30), // حواف مستديرة
+                    borderRadius: BorderRadius.circular(30),
                     gradient: LinearGradient(
-                      colors: [Colors.greenAccent, BTNgreen], // التدرج اللوني
+                      colors: [Colors.greenAccent, BTNgreen],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black26, // لون الظل
-                        offset: Offset(0, 4), // موقع الظل
-                        blurRadius: 5, // حجم الظل
+                        color: Colors.black26,
+                        offset: Offset(0, 4),
+                        blurRadius: 5,
                       ),
                     ],
                   ),
                   child: ElevatedButton(
                     onPressed: () async {
-                      await signIn(); // تأكد من أنه يتم استدعاء signIn()
+                      await signIn();
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(15), // حجم الحشوة
+                      padding: EdgeInsets.all(15),
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(30), // نفس الكيرف للحواف
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      backgroundColor: Colors
-                          .transparent, // لون الخلفية يصبح شفافا لعرض التدرج اللوني
-                      shadowColor: Colors
-                          .transparent, // إلغاء الظل الافتراضي لزر ElevatedButton
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
                     ),
                     child: Text(
                       "Sign in",
@@ -193,7 +185,9 @@ class _LoginState extends State<Login_auth> {
                     },
                     child: Text(
                       "Forgot password?",
-                      style: TextStyle(decoration: TextDecoration.underline,color: Colors.purple.shade900),
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.purple.shade900),
                     )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -212,7 +206,8 @@ class _LoginState extends State<Login_auth> {
                       child: Text('sign up',
                           style: TextStyle(
                               decoration: TextDecoration.underline,
-                              fontSize: 17,color: Colors.purple.shade900)),
+                              fontSize: 17,
+                              color: Colors.purple.shade900)),
                     ),
                   ],
                 ),
