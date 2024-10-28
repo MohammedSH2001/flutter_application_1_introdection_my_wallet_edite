@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application_1_introdection_my_wallet/data/getdatahive.dart';
 import 'package:hive/hive.dart';
 
-// تأكد من أنك حصلت على uid الخاص بالمستخدم بعد تسجيل الدخول
 Future<void> syncData() async {
   String? currentUserUid = FirebaseAuth.instance.currentUser?.uid;
 
@@ -11,7 +10,7 @@ Future<void> syncData() async {
   
   if (dataList.isEmpty) {
     print("No data found in Hive to upload.");
-    return; // إنهاء العملية إذا لم توجد بيانات
+    return; 
   }
   
   try {
@@ -32,18 +31,16 @@ Future<void> uploadDataToFirebase(List<Add_data> dataList, String? uid) async {
     return;
   }
 
-  // الوصول إلى المستند المحدد داخل مجموعة 'USERSSS'
   DocumentReference userDoc = FirebaseFirestore.instance.collection('USERSSS').doc(uid);
 
-  // الحصول على البيانات الحالية
   DocumentSnapshot snapshot = await userDoc.get();
-Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?; // تحويل إلى خريطة
-List<dynamic> existingData = data?['transactions'] ?? []; // الحصول على البيانات الموجودة أو مصفوفة فارغة
+Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?; 
+List<dynamic> existingData = data?['transactions'] ?? []; 
   for (Add_data data in dataList) {
     try {
       existingData.add({
         'name': data.name,
-        'datetime': data.datatime.toIso8601String(), // تحويل التاريخ إلى نص
+        'datetime': data.datatime.toIso8601String(), 
         'amount': data.amount,
         'IN': data.IN,
       });
@@ -52,11 +49,10 @@ List<dynamic> existingData = data?['transactions'] ?? []; // الحصول على
     }
   }
 
-  // تحديث المستند بالبيانات الجديدة
   try {
     await userDoc.set({
       'transactions': existingData,
-    }, SetOptions(merge: true)); // استخدام merge لتحديث المستند بدلاً من الكتابة فوقه
+    }, SetOptions(merge: true)); 
   } catch (e) {
     print("Error uploading data to Firebase: $e");
   }

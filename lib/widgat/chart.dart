@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1_introdection_my_wallet/data/getdatahive.dart';
-import 'package:flutter_application_1_introdection_my_wallet/widgat/total.dart';
+import 'package:flutter_application_1_introdection_my_wallet/shared/total.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Chart extends StatefulWidget {

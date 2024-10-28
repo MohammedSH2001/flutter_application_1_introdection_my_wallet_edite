@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1_introdection_my_wallet/data/getdatahive.dart';
-import 'package:flutter_application_1_introdection_my_wallet/pasges/All_data_to_firestore.dart';
+import 'package:flutter_application_1_introdection_my_wallet/data/All_data_to_firestore.dart';
 import 'package:flutter_application_1_introdection_my_wallet/pasges/EditeTransaction.dart';
 import 'package:flutter_application_1_introdection_my_wallet/pasges/Planning/devPlanning.dart';
 import 'package:flutter_application_1_introdection_my_wallet/pasges/detilase.dart';
-import 'package:flutter_application_1_introdection_my_wallet/pasges/getDataMy.dart';
-import 'package:flutter_application_1_introdection_my_wallet/widgat/total.dart';
+import 'package:flutter_application_1_introdection_my_wallet/data/getDataMy.dart';
+import 'package:flutter_application_1_introdection_my_wallet/shared/total.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -39,14 +39,14 @@ class _HomeState extends State<Dashbord> {
           .doc(userrr.uid)
           .get();
 
-      if (mounted) { // تحقق مما إذا كان الودجت ما زال موجودًا
+      if (mounted) { 
         setState(() {
           username = documentSnapshot.get('username');
           isLoading = false;
         });
       }
     } catch (e) {
-      if (mounted) { // تحقق مما إذا كان الودجت ما زال موجودًا
+      if (mounted) { 
         setState(() {
           username = "Error loading ";
         });
@@ -64,7 +64,6 @@ class _HomeState extends State<Dashbord> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(

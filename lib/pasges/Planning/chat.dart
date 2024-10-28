@@ -50,7 +50,7 @@ Map<String, double> analyzeData(List<Add_data> data) {
           .toList();
 
       final response = await model.generateContent([
-        Content.text("take a look at my expenses and give me some advice"),
+        Content.text("take a look at my expenses and give me some advice eplian on Arab"),
         ...readableData.map((it) => Content.text(it))
       ]);
 

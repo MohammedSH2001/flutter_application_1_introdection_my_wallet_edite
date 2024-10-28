@@ -1,12 +1,11 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1_introdection_my_wallet/pasges/auth/login.dart';
 import 'package:flutter_application_1_introdection_my_wallet/shared/color.dart';
-import 'package:flutter_application_1_introdection_my_wallet/widgat/consts.dart';
-import 'package:flutter_application_1_introdection_my_wallet/widgat/snackbar.dart';
+import 'package:flutter_application_1_introdection_my_wallet/shared/textFieldProper.dart';
+import 'package:flutter_application_1_introdection_my_wallet/shared/consts.dart';
+import 'package:flutter_application_1_introdection_my_wallet/shared/snackbar.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -16,8 +15,6 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  // File? imgPath;
-
   final _formKey = GlobalKey<FormState>();
   final usernameContriller = TextEditingController();
   final passowrdContriller = TextEditingController();
@@ -30,21 +27,6 @@ class _RegisterState extends State<Register> {
   bool isUpercase = false;
   bool isLowercase = false;
   bool isSpcialCharacters = false;
-
-  // uploadImage() async {
-  //   final pickedImg = await ImagePicker().pickImage(source: ImageSource.camera);
-  //   try {
-  //     if (pickedImg != null) {
-  //       setState(() {
-  //         imgPath = File(pickedImg.path);
-  //       });
-  //     } else {
-  //       print("NO img selected");
-  //     }
-  //   } catch (e) {
-  //     print("Error => $e");
-  //   }
-  // }
 
   isSpcialToken(String password) {
     isSpcialCharacters = false;
@@ -105,7 +87,8 @@ class _RegisterState extends State<Register> {
         password: passowrdContriller.text,
       );
 
-      CollectionReference users = FirebaseFirestore.instance.collection('USERSSS');
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('USERSSS');
 
       users
           .doc(credential.user?.uid)
@@ -137,13 +120,13 @@ class _RegisterState extends State<Register> {
     });
   }
 
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   emailContriller.dispose();
-  //   passowrdContriller.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    emailContriller.dispose();
+    passowrdContriller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,51 +141,52 @@ class _RegisterState extends State<Register> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Stack(children: [
-                    // CircleAvatar(
-                    //   backgroundColor: const Color.fromARGB(255, 225, 225, 225),
-                    //   radius: 65,
-                    //   backgroundImage: AssetImage('assets/img/avatar_2.png'),
-                    // ),
-                    // Positioned(
-                    //     bottom: -13,
-                    //     left: 90,
-                    //     child: IconButton(
-                    //         onPressed: () {
-                    //           // uploadImage();
-                    //         },
-                    //         icon: Icon(Icons.add_a_photo))),
-                  ]),
+                  Stack(children: []),
                   SizedBox(
                     height: 50,
                   ),
                   TextField(
-                      keyboardType: TextInputType.text,
-                      obscureText: false,
-                      controller: usernameContriller,
-                      decoration: decorationTextfield.copyWith(
-                          hintText: "Enter Your username : ",
-                          suffixIcon: Icon(Icons.person))),
+                    keyboardType: TextInputType.text,
+                    obscureText: false,
+                    controller: usernameContriller,
+                    decoration: decorationTextfield.copyWith(
+                      hintText: "Enter Your username : ",
+                      suffixIcon: Icon(Icons.person),
+                      border: CustomBorders.defaultBorder(),
+                      focusedBorder: CustomBorders.focusedBorder(),
+                      enabledBorder: CustomBorders.enabledBorder(),
+                    ),
+                  ),
                   const SizedBox(
                     height: 33,
                   ),
                   TextField(
-                      keyboardType: TextInputType.number,
-                      obscureText: false,
-                      controller: ageContriller,
-                      decoration: decorationTextfield.copyWith(
-                          hintText: "Enter Your Age : ",
-                          suffixIcon: Icon(Icons.pest_control_rodent))),
+                    keyboardType: TextInputType.number,
+                    obscureText: false,
+                    controller: ageContriller,
+                    decoration: decorationTextfield.copyWith(
+                      hintText: "Enter Your Age : ",
+                      suffixIcon: Icon(Icons.pest_control_rodent),
+                      border: CustomBorders.defaultBorder(),
+                      focusedBorder: CustomBorders.focusedBorder(),
+                      enabledBorder: CustomBorders.enabledBorder(),
+                    ),
+                  ),
                   const SizedBox(
                     height: 33,
                   ),
                   TextField(
-                      keyboardType: TextInputType.text,
-                      obscureText: false,
-                      controller: titleContriller,
-                      decoration: decorationTextfield.copyWith(
-                          hintText: "Enter Your title : ",
-                          suffixIcon: Icon(Icons.person_2_outlined))),
+                    keyboardType: TextInputType.text,
+                    obscureText: false,
+                    controller: titleContriller,
+                    decoration: decorationTextfield.copyWith(
+                      hintText: "Enter Your title : ",
+                      suffixIcon: Icon(Icons.person_2_outlined),
+                      border: CustomBorders.defaultBorder(),
+                      focusedBorder: CustomBorders.focusedBorder(),
+                      enabledBorder: CustomBorders.enabledBorder(),
+                    ),
+                  ),
                   const SizedBox(
                     height: 33,
                   ),
@@ -218,40 +202,50 @@ class _RegisterState extends State<Register> {
                     keyboardType: TextInputType.emailAddress,
                     obscureText: false,
                     decoration: decorationTextfield.copyWith(
-                        hintText: "Enter Your Email : ",
-                        suffixIcon: Icon(Icons.email)),
+                      hintText: "Enter Your Email : ",
+                      suffixIcon: Icon(Icons.email),
+                      border: CustomBorders.defaultBorder(),
+                      focusedBorder: CustomBorders.focusedBorder(),
+                      enabledBorder: CustomBorders.enabledBorder(),
+                    ),
                   ),
                   const SizedBox(
                     height: 33,
                   ),
                   TextFormField(
-                      onChanged: (password) {
-                        onpasswordchange(password);
-                        onnumber(password);
-                        isUpowerCase(password);
-                        isLowerCase(password);
-                        isSpcialToken(password);
-                      },
-                      validator: (value) {
-                        return value!.length < 8
-                            ? "Enter at least 8 characters"
-                            : null;
-                      },
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: passowrdContriller,
-                      keyboardType: TextInputType.text,
-                      obscureText: isvisibality ? true : false,
-                      decoration: decorationTextfield.copyWith(
-                          hintText: "Enter Your Password : ",
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isvisibality = !isvisibality;
-                                });
-                              },
-                              icon: isvisibality
-                                  ? Icon(Icons.visibility)
-                                  : Icon(Icons.visibility_off)))),
+                    onChanged: (password) {
+                      onpasswordchange(password);
+                      onnumber(password);
+                      isUpowerCase(password);
+                      isLowerCase(password);
+                      isSpcialToken(password);
+                    },
+                    validator: (value) {
+                      return value!.length < 8
+                          ? "Enter at least 8 characters"
+                          : null;
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    controller: passowrdContriller,
+                    keyboardType: TextInputType.text,
+                    obscureText: isvisibality ? true : false,
+                    decoration: decorationTextfield.copyWith(
+                      hintText: "Enter Your Password : ",
+                      border: CustomBorders.defaultBorder(),
+                      focusedBorder: CustomBorders.focusedBorder(),
+                      enabledBorder: CustomBorders.enabledBorder(),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isvisibality = !isvisibality;
+                          });
+                        },
+                        icon: isvisibality
+                            ? Icon(Icons.visibility_off)
+                            : Icon(Icons.visibility),
+                      ),
+                    ),
+                  ),
                   const SizedBox(
                     height: 33,
                   ),
@@ -390,8 +384,10 @@ class _RegisterState extends State<Register> {
                         await register();
                         if (!mounted) return;
                         {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => Login_auth()));
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Login_auth()));
                         }
                       } else {
                         showSnackBar(context, "ERROR");
@@ -434,7 +430,7 @@ class _RegisterState extends State<Register> {
                                 TextStyle(color: Colors.black, fontSize: 17)),
                       )
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

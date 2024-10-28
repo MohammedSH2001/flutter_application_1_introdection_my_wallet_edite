@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1_introdection_my_wallet/data/getdatahive.dart';
 import 'package:flutter_application_1_introdection_my_wallet/widgat/chart.dart';
-import 'package:flutter_application_1_introdection_my_wallet/widgat/total.dart';
+import 'package:flutter_application_1_introdection_my_wallet/shared/total.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class Statistics extends StatefulWidget {

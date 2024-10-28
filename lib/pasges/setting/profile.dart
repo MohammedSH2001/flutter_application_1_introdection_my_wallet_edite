@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1_introdection_my_wallet/pasges/MyProfile.dart';
+import 'package:flutter_application_1_introdection_my_wallet/pasges/setting/Account/MyProfile.dart';
 import 'package:flutter_application_1_introdection_my_wallet/pasges/auth/login.dart';
 import 'package:flutter_application_1_introdection_my_wallet/widgat/forwerbutton.dart';
-import 'package:flutter_application_1_introdection_my_wallet/widgat/settingitem.dart';
+import 'package:flutter_application_1_introdection_my_wallet/shared/settingitem.dart';
 import 'package:ionicons/ionicons.dart';
 
 class Account extends StatefulWidget {

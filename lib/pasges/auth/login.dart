@@ -1,12 +1,12 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1_introdection_my_wallet/pasges/auth/signup.dart';
 import 'package:flutter_application_1_introdection_my_wallet/shared/color.dart';
+import 'package:flutter_application_1_introdection_my_wallet/shared/textFieldProper.dart';
 import 'package:flutter_application_1_introdection_my_wallet/widgat/Bottun.dart';
-import 'package:flutter_application_1_introdection_my_wallet/widgat/consts.dart';
-import 'package:flutter_application_1_introdection_my_wallet/widgat/snackbar.dart';
+import 'package:flutter_application_1_introdection_my_wallet/shared/consts.dart';
+import 'package:flutter_application_1_introdection_my_wallet/shared/snackbar.dart';
 
 class Login_auth extends StatefulWidget {
   Login_auth({super.key});
@@ -74,68 +74,35 @@ class _LoginState extends State<Login_auth> {
                       onPressed: () {},
                       icon: Icon(Icons.email),
                     ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                        width: 2.0,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: BorderSide(
-                        color: Colors.blueAccent,
-                        width: 3.0,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14.0),
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 0.0,
-                      ),
-                    ),
+                    border: CustomBorders.defaultBorder(),
+                    focusedBorder: CustomBorders.focusedBorder(),
+                    enabledBorder: CustomBorders.enabledBorder(),
                   ),
                 ),
                 const SizedBox(
                   height: 33,
                 ),
                 TextField(
-                    controller: passowrdContriller,
-                    keyboardType: TextInputType.text,
-                    obscureText: isvizibility ? true : false,
-                    decoration: decorationTextfield.copyWith(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.blue,
-                                    width: 2.0,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.blueAccent,
-                                    width: 3.0,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(14.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.grey,
-                                    width: 0.0,
-                                  ),
-                                ),
-                        hintText: "Enter Your Password  ",
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isvizibility = !isvizibility;
-                              });
-                            },
-                            icon: isvizibility
-                                ? Icon(Icons.visibility_off)
-                                : Icon(Icons.visibility)))),
+                  controller: passowrdContriller,
+                  keyboardType: TextInputType.text,
+                  obscureText: isvizibility ? true : false,
+                  decoration: decorationTextfield.copyWith(
+                    border:CustomBorders.defaultBorder(),
+                    focusedBorder: CustomBorders.focusedBorder(),
+                    enabledBorder:CustomBorders.enabledBorder(),
+                    hintText: "Enter Your Password  ",
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isvizibility = !isvizibility;
+                        });
+                      },
+                      icon: isvizibility
+                          ? Icon(Icons.visibility_off)
+                          : Icon(Icons.visibility),
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 33,
                 ),

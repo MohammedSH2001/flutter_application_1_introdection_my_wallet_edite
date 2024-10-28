@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1_introdection_my_wallet/theme/theme.dart';
+import 'package:flutter_application_1_introdection_my_wallet/pasges/theme/theme.dart';
 
 class ThemeProvider with ChangeNotifier{
   ThemeData _themeData = lightMode;

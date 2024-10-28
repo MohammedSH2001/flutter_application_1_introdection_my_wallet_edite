@@ -4,11 +4,17 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera" android:required="true"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+
     
     <application
         android:label="flutter_application_1_introdection_my_wallet"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <service android:name="me.carda.awesome_notifications.notifications.receivers.ActionReceiver" android:permission="android.permission.BIND_JOB_SERVICE"/>
+
 
 
 

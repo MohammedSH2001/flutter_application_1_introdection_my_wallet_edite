@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1_introdection_my_wallet/shared/Data_from_firestore.dart';
+import 'package:flutter_application_1_introdection_my_wallet/data/Data_from_firestore.dart';
 
 class Myprofile extends StatefulWidget {
   const Myprofile({super.key});

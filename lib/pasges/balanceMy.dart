@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1_introdection_my_wallet/pasges/Planning/Discounts.dart';
 import 'package:flutter_application_1_introdection_my_wallet/pasges/Planning/NewsNow.dart';
 import 'package:flutter_application_1_introdection_my_wallet/pasges/Planning/chat.dart';
-import 'package:flutter_application_1_introdection_my_wallet/widgat/SecondBoringScreen.dart';
+import 'package:flutter_application_1_introdection_my_wallet/pasges/introduction/SecondBoringScreen.dart';
 
 class AddBalance extends StatefulWidget {
   const AddBalance({super.key});
@@ -20,7 +21,7 @@ class _AddBalanceState extends State<AddBalance> {
           width: double.infinity,
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -33,6 +34,27 @@ class _AddBalanceState extends State<AddBalance> {
                     ),
                   ),
                 ),
+                  _buildCard(
+                  context,
+                  title: "Discounts",
+                  image: "assets/discount.jpg",
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => Discounts()));
+                  },
+                ),
+                                SizedBox(height: 20),
+
+                  _buildCard(
+                  context,
+                  title: "AI Chat",
+                  image: "assets/chat.jpg",
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => BotScreen()));
+                  },
+                ),
+                SizedBox(height: 20,),
                 _buildCard(
                   context,
                   title: "News",
@@ -42,16 +64,7 @@ class _AddBalanceState extends State<AddBalance> {
                         MaterialPageRoute(builder: (context) => NewsScreen()));
                   },
                 ),
-                SizedBox(height: 20),
-                _buildCard(
-                  context,
-                  title: "AI Chat",
-                  image: "assets/chat.jpg",
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => BotScreen()));
-                  },
-                ),
+              
                 SizedBox(height: 20),
                 _buildCard(
                   context,

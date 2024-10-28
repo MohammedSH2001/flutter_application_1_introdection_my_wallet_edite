@@ -3,7 +3,7 @@ import 'package:flutter_application_1_introdection_my_wallet/pasges/Dashbord.dar
 import 'package:flutter_application_1_introdection_my_wallet/pasges/Staicastic.dart';
 import 'package:flutter_application_1_introdection_my_wallet/pasges/addscreen.dart';
 import 'package:flutter_application_1_introdection_my_wallet/pasges/balanceMy.dart';
-import 'package:flutter_application_1_introdection_my_wallet/pasges/profile.dart';
+import 'package:flutter_application_1_introdection_my_wallet/pasges/setting/profile.dart';
 import 'package:ionicons/ionicons.dart';
 
 class BottunMy extends StatefulWidget {
